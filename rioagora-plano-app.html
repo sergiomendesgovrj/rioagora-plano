@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16291D">
+<title>Rio Agora · Plano de Ação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F2E9;
+    --paper:#FFFFFF;
+    --ink:#191914;
+    --ink-soft:#585349;
+    --line:rgba(25,25,20,.12);
+    --green:#1E3B2C;
+    --green-deep:#12241A;
+    --ter:#DE5B34;
+    --ter-deep:#B84526;
+    --teal:#2C8C86;
+    --teal-deep:#1F6D68;
+    --grn:#3E7A52;
+    --grn-deep:#2C5C3D;
+    --shadow: 0 18px 40px -20px rgba(18,36,26,.35);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#0F1E15;
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    justify-content:center;
+  }
+  .shell{
+    width:100%;
+    max-width:560px;
+    min-height:100dvh;
+    background:var(--cream);
+    position:relative;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0; line-height:1.05; letter-spacing:-.01em;}
+  p{margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  .screen{flex:1; padding-bottom:96px; animation:enter .32s ease both;}
+  @media (prefers-reduced-motion:reduce){ .screen{animation:none;} }
+  @keyframes enter{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    padding:14px 18px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .topbar__back{
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line); background:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    flex:none; cursor:pointer;
+  }
+  .topbar__back svg{width:16px; height:16px;}
+  .topbar__title{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:600;}
+  .topbar__brand{display:flex; align-items:baseline; gap:6px;}
+  .topbar__brand b{font-family:'Space Grotesk'; font-weight:700; font-size:1rem;}
+  .topbar__brand span{font-size:.62rem; color:var(--ink-soft); font-family:'IBM Plex Mono';}
+
+  /* ---------- hero (home) ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(222,91,52,.35), transparent 55%),
+      linear-gradient(160deg, var(--green) 0%, var(--green-deep) 100%);
+    color:#F3EFE4;
+    padding:26px 22px 30px;
+  }
+  .hero__eyebrow{font-family:'IBM Plex Mono'; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:#B9CBB9; margin-bottom:14px; display:block;}
+  .hero h1{font-size:1.9rem; font-weight:700;}
+  .hero p.lead{margin-top:12px; font-size:.92rem; line-height:1.5; color:#D9E3D4; max-width:44ch;}
+  .hero__stats{
+    margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+  }
+  .hstat{background:rgba(255,255,255,.05); padding:14px 14px;}
+  .hstat b{display:block; font-family:'IBM Plex Mono'; font-size:1.15rem; color:#FFF;}
+  .hstat span{display:block; font-size:.68rem; color:#C6D3C2; margin-top:2px; line-height:1.3;}
+
+  /* ---------- theme grid (home) ---------- */
+  .section-label{
+    padding:22px 20px 6px; font-family:'IBM Plex Mono'; font-size:.68rem;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .theme-list{padding:6px 16px 8px; display:flex; flex-direction:column; gap:10px;}
+  .theme-card{
+    display:flex; align-items:center; gap:14px;
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    padding:13px 14px; text-decoration:none; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .theme-card:active{transform:scale(.98);}
+  .theme-card__tab{
+    flex:none; width:46px; height:46px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    font-family:'IBM Plex Mono'; color:#fff;
+  }
+  .theme-card__tab b{font-size:.82rem; font-weight:600;}
+  .theme-card__tab i{font-style:normal; font-size:.52rem; opacity:.8;}
+  .theme-card__body{flex:1; min-width:0;}
+  .theme-card__num{font-family:'IBM Plex Mono'; font-size:.62rem; color:var(--ink-soft);}
+  .theme-card__title{font-family:'Space Grotesk'; font-weight:700; font-size:.98rem; margin-top:1px;}
+  .theme-card__sub{font-size:.76rem; color:var(--ink-soft); margin-top:2px; line-height:1.3;}
+  .theme-card__chev{flex:none; color:var(--ink-soft); opacity:.5;}
+
+  .accent-ter{background:linear-gradient(160deg,var(--ter),var(--ter-deep));}
+  .accent-teal{background:linear-gradient(160deg,var(--teal),var(--teal-deep));}
+  .accent-grn{background:linear-gradient(160deg,var(--grn),var(--grn-deep));}
+  .text-ter{color:var(--ter-deep);} .text-teal{color:var(--teal-deep);} .text-grn{color:var(--grn-deep);}
+  .bg-ter{background:var(--ter);} .bg-teal{background:var(--teal);} .bg-grn{background:var(--grn);}
+
+  .closing{margin:20px 18px 8px; padding:20px; border-radius:var(--radius); background:var(--ink); color:var(--cream);}
+  .closing p.quote{font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; line-height:1.2;}
+  .closing p.small{margin-top:8px; font-size:.78rem; color:#C9C6BC; line-height:1.5;}
+
+  /* ---------- detail hero ---------- */
+  .dhero{padding:22px 20px 24px; color:#F3EFE4;}
+  .dhero__chip{
+    display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono';
+    font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+    background:rgba(255,255,255,.14); padding:5px 10px; border-radius:100px; margin-bottom:14px;
+  }
+  .dhero h1{font-size:1.55rem; font-weight:700;}
+  .dhero p.sub{margin-top:6px; font-size:.85rem; color:#DCE6D8; font-weight:500;}
+  .dhero p.desc{margin-top:10px; font-size:.85rem; line-height:1.55; color:#D2DECD;}
+
+  .stat-row{display:flex; gap:10px; padding:16px 16px 4px; overflow-x:auto; scrollbar-width:none;}
+  .stat-row::-webkit-scrollbar{display:none;}
+  .stat-card{
+    flex:none; min-width:132px; background:var(--paper); border:1px solid var(--line);
+    border-radius:14px; padding:12px 13px;
+  }
+  .stat-card b{display:block; font-family:'IBM Plex Mono'; font-size:1.1rem;}
+  .stat-card span{display:block; font-size:.68rem; color:var(--ink-soft); margin-top:3px; line-height:1.3;}
+
+  .block{padding:18px 20px 4px;}
+  .block h2{font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; font-family:'IBM Plex Mono'; color:var(--ink-soft); margin-bottom:10px;}
+  .plist{display:flex; flex-direction:column; gap:9px;}
+  .plist li{list-style:none; display:flex; gap:10px; font-size:.86rem; line-height:1.45; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
+  .plist li::before{content:""; flex:none; width:7px; height:7px; border-radius:2px; margin-top:6px; background:var(--ink-soft);}
+  .plist.solution li{background:#FBEFE8; border-color:rgba(222,91,52,.25);}
+  .plist.solution li::before{background:var(--ter-deep);}
+
+  .eixos{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .eixo{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:12px;}
+  .eixo__badge{
+    width:24px; height:24px; border-radius:7px; display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono'; font-size:.7rem; font-weight:600; color:#fff; margin-bottom:8px;
+  }
+  .eixo__name{font-family:'Space Grotesk'; font-weight:700; font-size:.82rem; line-height:1.2;}
+  .eixo__desc{font-size:.73rem; color:var(--ink-soft); margin-top:5px; line-height:1.4;}
+
+  /* ---------- timeline (signature) ---------- */
+  .timeline{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:14px 14px 16px; margin:0 0 4px;}
+  .timeline__tabs{display:flex; gap:8px; position:relative;}
+  .timeline__rail{position:absolute; left:16px; right:16px; top:15px; height:2px; background:var(--line); z-index:0;}
+  .timeline__tab{
+    flex:1; position:relative; z-index:1; background:none; border:none; padding:0 0 8px;
+    display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; font-family:inherit;
+  }
+  .timeline__dot{width:14px; height:14px; border-radius:50%; background:var(--paper); border:2px solid var(--line); transition:.2s;}
+  .timeline__tab.active .timeline__dot{background:var(--dot-color,var(--ter)); border-color:var(--dot-color,var(--ter)); transform:scale(1.15);}
+  .timeline__lbl{font-family:'IBM Plex Mono'; font-size:.63rem; color:var(--ink-soft); text-align:center; line-height:1.2;}
+  .timeline__tab.active .timeline__lbl{color:var(--ink); font-weight:600;}
+  .timeline__panel{margin-top:6px; padding-top:10px; border-top:1px dashed var(--line);}
+  .timeline__panel ul{margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .timeline__panel li{list-style:none; font-size:.82rem; line-height:1.4; display:flex; gap:8px;}
+  .timeline__panel li::before{content:"→"; flex:none; color:var(--dot-color,var(--ter)); font-weight:600;}
+
+  .chips{display:flex; flex-wrap:wrap; gap:7px;}
+  .chip{font-size:.72rem; background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:6px 11px; line-height:1.3;}
+  .chip.mono{font-family:'IBM Plex Mono'; font-size:.68rem;}
+
+  .end-cap{height:26px;}
+
+  /* ---------- guia screen ---------- */
+  .guia-card{margin:0 20px 14px; background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px;}
+  .guia-card h3{font-family:'Space Grotesk'; font-size:.95rem; margin-bottom:6px;}
+  .guia-card p{font-size:.85rem; line-height:1.55; color:var(--ink-soft);}
+  .guia-card.rule{background:var(--ink); color:var(--cream); border:none;}
+  .guia-card.rule h3{color:#F3B79A;}
+  .guia-card.rule p{color:#D8D5CA;}
+
+  /* ---------- bottom nav ---------- */
+  .navbar{
+    position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+    width:100%; max-width:560px; background:var(--paper);
+    border-top:1px solid var(--line); display:flex; z-index:30;
+    padding-bottom:env(safe-area-inset-bottom,0);
+  }
+  .navbtn{
+    flex:1; border:none; background:none; padding:11px 0 9px; display:flex; flex-direction:column;
+    align-items:center; gap:4px; cursor:pointer; font-family:'IBM Plex Mono'; font-size:.62rem;
+    color:var(--ink-soft); letter-spacing:.03em;
+  }
+  .navbtn svg{width:19px; height:19px;}
+  .navbtn.active{color:var(--ter-deep);}
+  .navbtn.active svg{stroke:var(--ter-deep);}
+</style>
+</head>
+<body>
+<div class="shell" id="shell"></div>
+
+<script>
+const THEMES = [
+{
+  id:"central", num:"01", code:"CR", accent:"ter",
+  title:"Central de Resultados",
+  subtitle:"A ponte entre vontade política e execução",
+  desc:"Estrutura ágil, diretamente subordinada ao governador. Não substitui secretarias, mas organiza prioridades, destrava gargalos e cobra resultados.",
+  stats:[{v:"12–15",l:"prioridades no portfólio"},{v:"180 dias",l:"para instalar método, dados e ritos"},{v:"3",l:"núcleos: portfólio, dados, resolução"}],
+  problems:["Planos anteriores falharam por excesso de prioridades e pouca rotina de execução","Metas sem orçamento, responsável e indicador viram intenção","Secretarias operam em silos e gargalos transversais chegam tarde ao governador"],
+  solution:["Criar Central ligada ao governador, com equipe técnica enxuta e autoridade política","Acompanhar prioridades com metas, orçamento, responsável e ritmo de decisão","Transparência sobre riscos e apoio às secretarias para destravar a execução"],
+  eixos:[
+    {t:"Portfólio e planos de entrega",d:"Traduz prioridades políticas em planos mensuráveis, marcos críticos e responsáveis."},
+    {t:"Dados e desempenho",d:"Integra, valida e filtra dados para decisões baseadas em evidências."},
+    {t:"Resolução de problemas",d:"Analisa causas-raízes, une órgãos e estrutura soluções jurídicas/orçamentárias."},
+    {t:"Rituais e blindagem",d:"Reuniões quinzenais, mensais e com o governador; decreto com dever de cooperação."}
+  ],
+  phases:[
+    {label:"0–30 dias", items:["Editar decreto","Nomear direção","Selecionar 12–15 prioridades com o governador","Aprovar modelo de plano de entrega"]},
+    {label:"30–90 dias", items:["Validar linhas de base","Traçar metas","Mapear dependências","Ativar primeiro painel de bordo"]},
+    {label:"90–180 dias", items:["Concluir primeiro balanço com o governador","Instalar salas de solução de gargalos","Publicar síntese para transparência pública"]}
+  ],
+  benchmarks:["Reino Unido — PM's Delivery Unit","Minas Gerais — Escritório de Prioridades Estratégicas (2011)","São Paulo — escritórios de projetos e monitoramento"],
+  indicators:["prioridades no portfólio","metas na trajetória","gargalos resolvidos","decisões tomadas","entregas públicas"]
+},
+{
+  id:"educacao", num:"02", code:"ED", accent:"teal",
+  title:"Educação",
+  subtitle:"Alfabetizar, recompor aprendizagens e reconstruir o Ensino Médio",
+  desc:"Prioridade é excelência com equidade: elevar a aprendizagem em toda a rede e acelerar a recuperação dos estudantes e territórios em maior defasagem.",
+  stats:[{v:"60%",l:"crianças do 2º ano alfabetizadas no RJ (2025)"},{v:"3,3",l:"2ª pior nota no IDEB do país no Ensino Médio"},{v:"R$19,5mil",l:"maior gasto anual por estudante do país"}],
+  problems:["Baixa alfabetização gera atraso acumulado até o Ensino Médio","Rio foi o último estado a aprovar o ICMS Educacional; agora precisa regulamentar bem","Falta avaliação própria, currículo priorizado, suporte pedagógico e governança de contratos críticos"],
+  solution:["Alfabetização na idade certa como prioridade nº1 do governador","Regime de colaboração Estado-municípios com comissões permanentes e metas","Gestão por resultados, currículo de recomposição, EPT, tempo integral e transparência do gasto"],
+  eixos:[
+    {t:"Alfabetização na idade certa",d:"Apoio técnico, material estruturado, formação, avaliação frequente e devolutivas úteis."},
+    {t:"Regime de colaboração",d:"Comissões bipartites Estado-municípios por etapa, com pactuação de metas e suporte territorial."},
+    {t:"ICMS Educação",d:"Regulamentar fórmula com foco em aprendizagem, equidade e anos iniciais."},
+    {t:"Gestão para resultados",d:"Metas por escola/regional, planos de ação, acompanhamento e apoio diferenciado."},
+    {t:"Currículo e recomposição",d:"Currículo priorizado, plano de curso, avaliações curtas e materiais para recuperar lacunas."},
+    {t:"RH estratégico",d:"Seleção de diretores, planejamento de força de trabalho e estágio probatório formativo."},
+    {t:"Ensino Médio, integral e EPT",d:"Reduzir evasão/reprovação, tempo integral, EPT, letramento digital e STEAM."},
+    {t:"Gasto efetivo e integridade",d:"Governança de contratos, manutenção por desempenho e gasto vinculado ao aprendizado."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Comissões bipartites","Avaliação e monitoramento","Currículo priorizado e suporte ao professor","Plano de RH estratégico","Auditoria e governança de contratos críticos"]},
+    {label:"2–4 anos", items:["Escalar pacote de alfabetização e apoio técnico em rede","Rotina de gestão para resultados","Expansão de tempo integral / EPT"]},
+    {label:"10 anos", items:["Consolidar coordenação federativa","Integrar a educação básica ao ecossistema estadual de conhecimento (UERJ, CEPERJ, FAPERJ)"]}
+  ],
+  benchmarks:["Ceará — 84% de alfabetização, ICMS, Prêmio Escola Nota 10","Espírito Santo e Mato Grosso — gestão por resultados","Pernambuco/Goiás — seleção de diretores","Paraná — formação entre pares"],
+  indicators:["% alfabetizados 2º ano","IDEB/proficiência","evasão/reprovação EM","tempo integral/EPT","contratos com SLA"]
+},
+{
+  id:"saude", num:"03", code:"SA", accent:"grn",
+  title:"Saúde",
+  subtitle:"Transformar infraestrutura em cuidado contínuo e previsível",
+  desc:"O Rio tem ativos de saúde, mas a rede funciona de forma fragmentada. A prioridade é regionalizar, dar previsibilidade ao acesso e organizar linhas de cuidado.",
+  stats:[{v:"20.814",l:"leitos SUS no estado (acima da média nacional)"},{v:"2.569",l:"leitos de UTI SUS"},{v:"14/18",l:"hospitais estaduais na Região Metropolitana"}],
+  problems:["Estrutura relevante não se traduz em acesso organizado e melhores desfechos","Múltiplas filas, baixa transparência, judicialização e peregrinação do cidadão","Má distribuição da rede de atendimento à saúde no território"],
+  solution:["Regionalização real com redes, regulação e governança técnica","Fila única por linhas de cuidado, transparência e faixas de tempo de espera","Atenção Primária forte, Planificação CONASS e integração saúde-segurança-justiça"],
+  eixos:[
+    {t:"Regionalização de verdade",d:"Mapear vazios, fluxos de retenção/atração e reorganizar serviços regionais."},
+    {t:"Governança metropolitana e regional",d:"CIRs/CIB como instâncias efetivas, planejamento regional e coordenação intersetorial."},
+    {t:"Atenção Primária e linhas de cuidado",d:"Planificação CONASS, redes de atenção, DCNT e cuidado multiprofissional."},
+    {t:"Acesso e filas",d:"Fila única, transparência de tempo de espera e pactuação com o Judiciário."},
+    {t:"Governança e integridade",d:"Gestão técnica, regulação de OS, prontuário eletrônico e metas de qualidade."},
+    {t:"Violência e proteção",d:"Sala Lilás, registro hospitalar, alerta de feminicídio e coleta de vestígios."},
+    {t:"Inovação em saúde",d:"Conectar ciência, assistência, indústria e dados populacionais para desenvolvimento."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Planificação CONASS","Mapeamento de vazios sanitários","Fila única / transparência","Governança CIR/CIB"]},
+    {label:"2–4 anos", items:["Planejamento da regionalização (PPI/PRI/PDR)","Cofinanciamento indutor","Regulação forte","Novo modelo assistencial: linhas de cuidado para DCNT e Atenção Primária fortalecida"]},
+    {label:"10 anos", items:["Transformar ativos em melhores resultados, com mais inovação, estabilidade institucional e menor desigualdade territorial no acesso"]}
+  ],
+  benchmarks:["CONASS — Planificação da Atenção à Saúde","São Paulo e Mato Grosso do Sul — integração macrorregional","NHS/UK — governança regional","Singapura, Massachusetts e Barcelona — hubs de saúde"],
+  indicators:["tempo de espera","taxa de retenção regional","APS/linhas de cuidado","fila única","infecção/qualidade"]
+},
+{
+  id:"ambiente", num:"04", code:"MA", accent:"ter",
+  title:"Meio Ambiente",
+  subtitle:"Adaptação climática, transição energética e economia verde",
+  desc:"No Rio, clima não é agenda abstrata: é habitação, drenagem, saneamento, risco de desastre, metano, energia e proteção dos mais vulneráveis.",
+  stats:[{v:"2,14 mi",l:"pessoas em favelas e comunidades urbanas"},{v:"~500 mil",l:"déficit habitacional estimado"},{v:"62%",l:"emissões estaduais ligadas a energia"}],
+  problems:["Alta exposição a chuvas extremas, alagamentos, deslizamentos e ondas de calor","Grande população em áreas vulneráveis e baixa cooperação municipal","Economia dependente de óleo e gás exposta a riscos de transição"],
+  solution:["Adaptação como proteção social: habitação segura, drenagem por bacia e resposta rápida a eventos extremos","Mitigação com foco em metano, resíduos, energia e biometano","Fortalecer SISNAMA, ciência aplicada, restauro e instrumentos de financiamento climático"],
+  eixos:[
+    {t:"Adaptação e proteção social",d:"Habitação segura, macrodrenagem, agentes comunitários e resposta rápida a eventos extremos."},
+    {t:"Metano e biometano",d:"Programa de redução de metano em energia e resíduos; hub com Petrobras, FINEP e universidades."},
+    {t:"Conhecimento e transição tecnológica",d:"Economia do conhecimento, eficiência energética e qualificação para nova economia."},
+    {t:"Cidades resilientes",d:"Saneamento, drenagem, uso do solo, energia e transporte integrados à política climática."},
+    {t:"Instituições ambientais fortes",d:"SISNAMA, fiscalização, servidores capacitados e ciência na decisão."},
+    {t:"Justiça ambiental",d:"Combater racismo ambiental e oferecer alternativas econômicas a comunidades vulneráveis."},
+    {t:"Restauro ecológico",d:"Agenda de reflorestamento, recuperação ambiental e resiliência hídrica/térmica."},
+    {t:"Economia verde e financiamento",d:"Créditos de carbono, carbono azul, VGF, Fundo Clima/FECAM e capital privado."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Governança de adaptação","Carteira de projetos por bacia e prioridades de risco","Capacitação de agentes comunitários para eventos extremos","Política estadual de metano/biometano","Reforçar capacidade institucional (SISNAMA, ciência, decisão por evidência)"]},
+    {label:"2–4 anos", items:["Escalar política habitacional de risco","Consolidar programa de cidades resilientes como agenda transversal","Valorização de resíduos / recuperação energética","Carteira estadual de projetos de economia verde"]},
+    {label:"10 anos", items:["Riscos climáticos e de transição incorporados a planejamento, regulação e estratégia econômica","Rio consolidado como polo de inovação e capital humano alinhado à transição energética"]}
+  ],
+  benchmarks:["Projeto Iguaçu — bacias Iguaçu-Botas-Sarapuí","Despoluição da Baía de Guanabara","Compromisso Global com o Metano","Noruega — fundos de transição"],
+  indicators:["famílias em área de risco","obras por bacia","redução de metano","área restaurada","recursos climáticos captados"]
+},
+{
+  id:"seguranca", num:"05", code:"SP", accent:"teal",
+  title:"Segurança Pública",
+  subtitle:"Recuperar soberania territorial, reduzir violência e reconstruir governança",
+  desc:"O desafio não é só criminalidade: é controle do território, corrupção institucional, alta letalidade, baixa resolução de homicídios e fragmentação da política pública.",
+  stats:[{v:"R$24,08bi",l:"despesa executada em segurança pública (2025)"},{v:"15,44%",l:"fatia do orçamento estadual"},{v:"3.890",l:"mortes violentas (10,7/dia) em 2025"}],
+  problems:["Grupos armados disputam controle territorial e corroem a autoridade do Estado","Gasto elevado não se converte em resultados","Alta letalidade, baixa elucidação de crimes e corrupção reduzem a legitimidade"],
+  solution:["Governança, inteligência e metas para reduzir poder armado e econômico do crime","Foco territorial nos roubos/furtos, investigação e controle de armas/munições","Integridade, corregedoria independente e prevenção focalizada, integração com força-tarefa federal"],
+  eixos:[
+    {t:"Soberania territorial",d:"Enfraquecer facções e milícias com inteligência, investigação financeira e coordenação entre agências."},
+    {t:"Redução da letalidade",d:"Monitoramento, câmeras, revisão de incentivos e protocolos de proteção da vida."},
+    {t:"Armas e munições",d:"Rastreabilidade, inteligência e controle do poder bélico das organizações criminosas."},
+    {t:"Resolver homicídios",d:"Melhorar investigação, perícia, gestão de inquéritos e responsabilização."},
+    {t:"Roubos e furtos",d:"Policiamento orientado por dados nos hot spots e prevenção municipal."},
+    {t:"Integridade e corrupção",d:"Corregedoria independente, transparência e combate a redes de captura."},
+    {t:"Governança e coordenação",d:"Conselho Superior de Segurança Pública, secretaria estratégica e sistema de metas."},
+    {t:"Prevenção focalizada",d:"Segurança como mosaico: juventude, educação, território, iluminação e pactos locais."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Corregedoria e ouvidoria independentes","Conselho Superior","Mapa de territórios","Indicadores e integração de dados","Governança de metas e acompanhamento","Foco em circunscrições críticas","Protocolos de violência de gênero"]},
+    {label:"2–4 anos", items:["Redução do poder armado/econômico do crime organizado","Elevar taxas de elucidação e responsabilização de crimes","Inteligência integrada"]},
+    {label:"10 anos", items:["Sistema coordenado, íntegro e orientado por evidências, com prevenção focalizada e repressão qualificada"]}
+  ],
+  benchmarks:["Pernambuco — Pacto pela Vida","Minas Gerais — Fica Vivo","Piauí — Meu Celular de Volta","Paraíba — investigação","Inglaterra/País de Gales (IOPC) e NYC (CCRB) — controle externo"],
+  indicators:["MVI/homicídios","letalidade policial","resolução de homicídios","roubos por CISP","apreensão/rastreio de armas"]
+},
+{
+  id:"fiscal", num:"06", code:"GF", accent:"grn",
+  title:"Gestão do Estado + Gestão Fiscal",
+  subtitle:"Reconstruir credibilidade fiscal e capacidade de entrega",
+  desc:"A crise fiscal do Rio é também uma crise de planejamento, dados, governança e qualidade do gasto. Sem gestão fiscal, nenhuma agenda social é sustentável.",
+  stats:[{v:"217%",l:"DCL/RCL no 3º quadrimestre de 2025"},{v:"200%",l:"limite DCL/RCL pela Lei de Responsabilidade Fiscal"},{v:"0–12m",l:"janela para arrumar governança, dados e contratos"}],
+  problems:["Endividamento elevado, despesas rígidas e dependência de renegociações","Renúncias, contratos e gastos pouco avaliados por custo-benefício","PPA, LDO e orçamento nem sempre orientam a execução real do governo"],
+  solution:["Governança fiscal transparente, metas com fiscalização e revisão de despesas invisíveis","Infraestrutura de dados para governar, avaliar e corrigir rota","Usar royalties e fundos com visão de longo prazo"],
+  eixos:[
+    {t:"Gestão estratégica de pessoas",d:"Dimensionamento da força de trabalho, novos concursos e redesenho de carreiras/salários."},
+    {t:"Planejamento que funciona",d:"Alinhar PPA, LDO e LOA; ligar prioridades a orçamento e execução."},
+    {t:"Dados para governar",d:"Unidade de dados, avaliação contínua e informação interoperável."},
+    {t:"Renúncias e contratos",d:"Revisar despesa invisível, isenções fiscais, contratos grandes e qualidade do gasto."},
+    {t:"Dívida e Regime de Recuperação Fiscal",d:"Sair do ciclo de renegociação com solução estruturante e previsível."},
+    {t:"Despesas rígidas",d:"Previdência, pessoal, folha, supersalários e sustentabilidade de longo prazo."},
+    {t:"Governança fiscal",d:"Credibilidade com transparência ativa, metas, relatórios e regras de correção."},
+    {t:"Federalismo e coordenação",d:"Novo pacto Estado-municípios e governança para políticas transversais."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Implantar transparência ativa e rotina macrofiscal","Revisar renúncias, contratos e despesas rígidas com critérios técnicos","Desenhar mecanismo de VGF/royalties para projetos estruturantes","Dimensionar a força de trabalho e realizar concursos necessários"]},
+    {label:"2–4 anos", items:["Reformas estruturais com dados","Reduzir refinanciamento de dívida","Consolidar pacto interfederativo de políticas compartilhadas"]},
+    {label:"10 anos", items:["Credibilidade fiscal","Capacidade de investimento","Instituições menos vulneráveis à captura"]}
+  ],
+  benchmarks:["Chile — DIPRES: orçamento, avaliação e disciplina fiscal","Espírito Santo — responsabilidade fiscal e gestão por resultados","Reino Unido — padrão GDS de governo digital","Modelos de VGF/blended finance"],
+  indicators:["DCL/RCL","resultado primário","investimento público","renúncias avaliadas","contratos auditados","folha/teto"]
+},
+{
+  id:"cidades", num:"07", code:"CM", accent:"ter",
+  title:"Cidade Metropolitana",
+  subtitle:"Mobilidade, habitação e governança territorial para a metrópole real",
+  desc:"O Rio precisa governar a metrópole que existe de fato: redes de transporte, moradia, centralidades, emprego e clima atravessam fronteiras municipais.",
+  stats:[{v:"1.100",l:"linhas intermunicipais sob permissões precárias"},{v:"~50%",l:"queda de passageiros na Região Metropolitana desde 2019"},{v:"até 30%",l:"da renda familiar gasta com transporte"}],
+  problems:["Sistema de transporte fragmentado, com queda de demanda, baixa confiabilidade e ticket alto","Planejamento metropolitano dividido entre muitos órgãos e pouca autoridade real","Habitação e mobilidade produzem espraiamento, desigualdade e baixa produtividade"],
+  solution:["Reformar transporte com contratos por desempenho, governança e financiamento estável","Trens como espinha dorsal da mobilidade verde e bilhete único metropolitano real","Habitação próxima a eixos de transporte e periferia produtiva como estratégia de desenvolvimento"],
+  eixos:[
+    {t:"Reorganização do transporte metropolitano",d:"Contratos, governança, infraestrutura e tarifa com metas e dados."},
+    {t:"Trem como espinha dorsal",d:"Transformar trilhos em metrô de superfície, integrando modos e reduzindo emissões."},
+    {t:"Direito e acesso à cidade",d:"Sistema Único de Mobilidade, bilhete único e tarifa social onde fizer sentido."},
+    {t:"Habitação e território",d:"Adensar nos eixos, requalificar centralidades e combater espraiamento."},
+    {t:"Periferia produtiva",d:"New Deal Verde, empregos locais, infraestrutura social e produtiva na periferia."},
+    {t:"Dados e planejamento",d:"Abrir caixa-preta metropolitana com dados de demanda, contratos e investimentos."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Governança","Implantar bilhetagem única com dados abertos","Reestruturar contratos por desempenho nos modais","Mapear áreas por adensamento e eixos de transporte","Plano emergencial de infraestrutura"]},
+    {label:"2–4 anos", items:["Consolidar bilhete único","Integração física/operacional","Estratégia de habitação e adensamento nos eixos de transporte"]},
+    {label:"10 anos", items:["Governança consolidada, centralidades fortalecidas, maior produtividade e menor desigualdade"]}
+  ],
+  benchmarks:["Bogotá e Santiago — reforma de contratos e integração de sistemas","Maricá, Belo Horizonte e Fortaleza — subsídio/tarifa","Viena/Portugal — habitação e adensamento","Niterói — clima e resiliência"],
+  indicators:["passageiros por modo","pontualidade","tempo de viagem","integração tarifária","habitação nos eixos","emissões"]
+},
+{
+  id:"economia", num:"08", code:"DE", accent:"teal",
+  title:"Desenvolvimento Econômico e Social",
+  subtitle:"Diversificar a economia e reduzir desigualdades territoriais",
+  desc:"O Rio precisa usar seus ativos para construir novas missões econômicas: energia, saúde, mar, logística, cultura, turismo, inovação e território.",
+  stats:[{v:"7,6%",l:"participação da indústria de transformação no VAB (SP: 18,3%; MG: 19,2%)"},{v:"88%",l:"fatia do petróleo nacional produzida no Rio"},{v:"25%",l:"taxa de desemprego entre jovens na periferia"}],
+  problems:["Crescimento baixo e sem complexificação suficiente da estrutura produtiva","Dependência de petróleo e desigualdade territorial, especialmente na Baixada","Ativos científicos, logísticos, culturais e industriais pouco coordenados"],
+  solution:["Energia como alavanca produtiva e não como muleta fiscal","Reindustrialização inteligente, missões de futuro e desenvolvimento territorial explícito","Conectar universidades, saúde, tecnologia, economia criativa e trabalho formal"],
+  eixos:[
+    {t:"Energia produtiva",d:"Usar óleo, gás e transição energética para gerar cadeia produtiva e inovação."},
+    {t:"Reindustrialização inteligente",d:"Elevar a indústria de transformação, produtividade e encadeamentos."},
+    {t:"Missões de futuro",d:"Economia verde, mar, saúde, logística, turismo, cultura e tecnologia."},
+    {t:"Desenvolvimento territorial",d:"Baixada e Sul Fluminense como prioridades explícitas de projetos-âncora."},
+    {t:"Inovação e conhecimento",d:"Transformar universidades e o ecossistema científico em âncoras de produção."},
+    {t:"Economia da Cultura e turismo",d:"Marca Rio como ativo econômico com governança e qualificação."},
+    {t:"Trabalho e inclusão",d:"Formalização, qualificação, produtividade e empregabilidade territorial."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Definir missões, carteira de projetos-âncora e governança de execução","Plano de encadeamento produtivo em energia","Agenda territorial da Baixada e regiões de baixo IDH","Programa de desburocratização"]},
+    {label:"2–4 anos", items:["Escalar missões com instrumentos de financiamento e parcerias","Consolidar instrumentos de produtividade para indústria e serviços","Implantar monitoramento territorial"]},
+    {label:"10 anos", items:["Diversificação consolidada com setores de futuro","Agenda territorial sustentada para reduzir desigualdade intermunicipal"]}
+  ],
+  benchmarks:["Espírito Santo — pactos sociedade-governo","Singapura/Massachusetts/Barcelona — hubs de inovação","Noruega — fundos de transição","Medellín — economia da cultura"],
+  indicators:["VAB indústria transformação","emprego formal","renda per capita","IFDM/território","investimento privado","abertura de empresas"]
+},
+{
+  id:"integridade", num:"09", code:"IT", accent:"grn",
+  title:"Integridade e Transparência",
+  subtitle:"Reconstruir confiança com dados abertos, prevenção e controle social",
+  desc:"Depois de sucessivos escândalos, integridade não é adorno: é condição para governar, contratar, nomear, gastar e entregar com legitimidade.",
+  stats:[{v:"64",l:"nota no Índice de Transparência e Governança Pública"},{v:"17º",l:"posição do RJ entre as 27 Unidades Federativas"},{v:"107º",l:"posição do Brasil entre 180 países (IPC)"}],
+  problems:["Transparência incompleta, dados pouco reutilizáveis e baixa rastreabilidade de contratos","Integridade fragmentada, reativa e sem gestão sistemática de riscos","Nomeações, conflitos de interesse e canais de denúncia precisam de regras mais claras"],
+  solution:["Sistema Estadual de Integridade com responsabilidades, risco, compras abertas e dados","Participação social, transparência da folha, governo aberto e proteção ao denunciante","Monitorar integridade como política de gestão, não apenas como controle posterior"],
+  eixos:[
+    {t:"Sistema Estadual de Integridade",d:"Coordenação, responsabilidades, governança e monitoramento transversal."},
+    {t:"Gestão de riscos",d:"Prevenir corrupção e desperdício antes da contratação e execução."},
+    {t:"Compras e contratos abertos",d:"Transparência de todo o ciclo: planejamento, licitação, execução e aditivos."},
+    {t:"Dados abertos e LAI",d:"Bases em formato aberto, APIs, pedidos de novos dados e transparência ativa."},
+    {t:"Participação social",d:"Conselhos, controle cidadão, orçamento participativo e Semana Governo Aberto."},
+    {t:"Pessoas e liderança",d:"Nomeações técnicas, critérios, conflitos de interesse e profissionalização."},
+    {t:"Agendas e captura",d:"Monitorar agendas públicas, lobby, relacionamento privado e prevenção da captura."},
+    {t:"Denúncia e corregedoria",d:"Canal seguro, proteção ao denunciante e responsabilização tempestiva."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Criar sistema estadual de integridade e comitê estratégico","Mapa de riscos para secretarias","Painel aberto de folha, contratos, renúncias e prioridades","Política de conflito de interesses e protocolo anti-retaliação"]},
+    {label:"2–4 anos", items:["Portal de Contratações Abertas","Seleção por competência","Auditoria baseada em riscos","Participação social no planejamento e orçamento","Relatórios anuais comparáveis"]},
+    {label:"10 anos", items:["Integridade incorporada a planejamento, orçamento, gestão de pessoas e avaliação de políticas","Participação social permanente e monitoramento independente"]}
+  ],
+  benchmarks:["OCDE — sistema de integridade pública e gestão de riscos","OCDS e CGU — padrões para dados e contratos","Berlim — governo aberto","Espírito Santo em Ação — cobrança social"],
+  indicators:["ITGP","contratos abertos","dados/API","denúncias tratadas","riscos mitigados","nomeações técnicas"]
+},
+{
+  id:"cultura", num:"10", code:"CP", accent:"ter",
+  title:"Cultura e Patrimônio",
+  subtitle:"Cultura como política de desenvolvimento, pertencimento e futuro",
+  desc:"A cultura no Rio não é acessória: é patrimônio, identidade, economia, turismo, juventude, segurança cidadã e projeção internacional.",
+  stats:[{v:"R$41bi",l:"economia criativa na cidade do Rio em 2025"},{v:"0,5%",l:"fatia do orçamento estadual destinada à cultura"},{v:"R$103mi",l:"destinados ao RJ via PNAB"}],
+  problems:["Baixa centralidade política e financiamento instável, fragmentado e pouco transparente","Concentração territorial, descontinuidade de equipamentos e manutenção negligenciada","Potencial da economia criativa e do patrimônio ainda subaproveitado"],
+  solution:["Cultura como prioridade estratégica com financiamento previsível e descentralizado","Centros de referência, equipamentos com manutenção/programação e cultura nos territórios","Economia criativa, patrimônio, juventude e dados como política de desenvolvimento"],
+  eixos:[
+    {t:"Prioridade estratégica",d:"Inserir cultura na agenda de desenvolvimento, segurança cidadã e juventude."},
+    {t:"Financiamento estável",d:"FEC, fomento direto, transparência, descentralização e orçamento rastreável."},
+    {t:"Cultura nos territórios",d:"Centros de referência, identidade local e fortalecimento de coletivos."},
+    {t:"Economia da Cultura",d:"Trabalho, renda, turismo, audiovisual, design, música, moda e gastronomia."},
+    {t:"Patrimônio e memória",d:"Plano de Patrimônio e Memória priorizando territórios da diáspora africana e do samba."},
+    {t:"Equipamentos culturais",d:"Manutenção obrigatória, gestão, programação e governança de espaços."},
+    {t:"Educação, juventude e segurança",d:"Cultura integrada a escolas, territórios vulneráveis e prevenção social."},
+    {t:"Capacidade estatal e dados",d:"Profissionalizar gestão cultural, indicadores e observatório da economia criativa."}
+  ],
+  phases:[
+    {label:"0–12 meses", items:["Atualizar Plano Estadual de Cultura","Criar plano anual de investimento","Mapa de equipamentos, manutenção e programação","Pilotos de Centros de Referência Cultural nos territórios","Microfomento","Estruturar Observatório de Cultura e Economia Criativa"]},
+    {label:"2–4 anos", items:["Consolidar Rede de Centros de Referência Cultural","Escalar cultura nas escolas","Estratégia de economia da cultura","Plano de patrimônio e memória","Fortalecer conselhos, planos e fundos municipais"]},
+    {label:"10 anos", items:["Sistema estadual de cultura consolidado, incorporado ao desenvolvimento econômico e social","Rede sustentável de equipamentos no interior, periferias e comunidades"]}
+  ],
+  benchmarks:["Medellín/Bogotá — cultura como infraestrutura social","Reino Unido — economia criativa","Coreia do Sul/Colômbia — política cultural e Economía Naranja","PNAB/Fundo Estadual — financiamento rastreável"],
+  indicators:["orçamento/fomento","territórios atendidos","equipamentos ativos","empregos criativos","visitação/patrimônio","jovens atendidos"]
+}
+];
+
+const ACCENT_VAR = {ter:"var(--ter)", teal:"var(--teal)", grn:"var(--grn)"};
+
+const icons = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  chev:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'
+};
+
+function findTheme(id){ return THEMES.find(t=>t.id===id); }
+
+function themeCard(t){
+  return `<a class="theme-card" href="#/tema/${t.id}">
+    <div class="theme-card__tab accent-${t.accent}"><b>${t.code}</b><i>${t.num}</i></div>
+    <div class="theme-card__body">
+      <div class="theme-card__num">TEMA ${t.num}</div>
+      <div class="theme-card__title">${t.title}</div>
+      <div class="theme-card__sub">${t.subtitle}</div>
+    </div>
+    <div class="theme-card__chev">${icons.chev}</div>
+  </a>`;
+}
+
+function renderHome(){
+  return `
+  <div class="screen" id="top-of-home">
+    <div class="hero">
+      <span class="hero__eyebrow">Rio Agora · Plano de Governo</span>
+      <h1>Plano de ação para o Estado do Rio de Janeiro</h1>
+      <p class="lead">Agenda estratégica, apartidária e orientada por evidências, com foco em execução e prioridades — resumo para candidatos.</p>
+      <div class="hero__stats">
+        <div class="hstat"><b>9</b><span>encontros temáticos</span></div>
+        <div class="hstat"><b>41</b><span>especialistas</span></div>
+        <div class="hstat"><b>50+</b><span>estudos</span></div>
+        <div class="hstat"><b>3</b><span>grupos de discussão</span></div>
+      </div>
+    </div>
+    <div class="section-label">Os 10 temas</div>
+    <div class="theme-list">${THEMES.map(themeCard).join("")}</div>
+    <div class="closing">
+      <p class="quote">A hora e a vez do Rio. Agora.</p>
+      <p class="small">Diagnósticos existem. Prioridades estão postas. O que falta é liderança disposta a executar — e mobilização da sociedade para cobrar continuidade e resultado.</p>
+    </div>
+  </div>`;
+}
+
+function phaseColorVar(accent){ return ACCENT_VAR[accent] || "var(--ter)"; }
+
+function renderTimeline(theme, activeIdx){
+  const dot = phaseColorVar(theme.accent);
+  const tabs = theme.phases.map((p,i)=>`
+    <button class="timeline__tab ${i===activeIdx?'active':''}" style="--dot-color:${dot}" data-phase="${i}">
+      <span class="timeline__dot"></span>
+      <span class="timeline__lbl">${p.label}</span>
+    </button>`).join("");
+  const panel = theme.phases[activeIdx];
+  return `<div class="timeline" style="--dot-color:${dot}">
+    <div class="timeline__tabs"><div class="timeline__rail"></div>${tabs}</div>
+    <div class="timeline__panel">
+      <ul>${panel.items.map(i=>`<li>${i}</li>`).join("")}</ul>
+    </div>
+  </div>`;
+}
+
+function renderDetail(id, phaseIdx){
+  const t = findTheme(id);
+  if(!t) return renderHome();
+  phaseIdx = phaseIdx||0;
+  return `
+  <div class="screen">
+    <div class="topbar">
+      <div class="topbar__back" data-nav="#/"> ${icons.back} </div>
+      <div class="topbar__title">Tema ${t.num} · ${THEMES.length}</div>
+    </div>
+    <div class="dhero accent-${t.accent}">
+      <span class="dhero__chip">${t.code} · Tema ${t.num}</span>
+      <h1>${t.title}</h1>
+      <p class="sub">${t.subtitle}</p>
+      <p class="desc">${t.desc}</p>
+    </div>
+
+    <div class="stat-row">
+      ${t.stats.map(s=>`<div class="stat-card"><b class="text-${t.accent}">${s.v}</b><span>${s.l}</span></div>`).join("")}
+    </div>
+
+    <div class="block">
+      <h2>O problema</h2>
+      <ul class="plist">${t.problems.map(p=>`<li>${p}</li>`).join("")}</ul>
+    </div>
+
+    <div class="block">
+      <h2>Solução proposta</h2>
+      <ul class="plist solution">${t.solution.map(p=>`<li>${p}</li>`).join("")}</ul>
+    </div>
+
+    <div class="block">
+      <h2>Eixos de atuação</h2>
+      <div class="eixos">
+        ${t.eixos.map((e,i)=>`<div class="eixo">
+          <div class="eixo__badge bg-${t.accent}">${String.fromCharCode(65+i)}</div>
+          <div class="eixo__name">${e.t}</div>
+          <div class="eixo__desc">${e.d}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Agenda de execução</h2>
+      <div id="timeline-holder">${renderTimeline(t, phaseIdx)}</div>
+    </div>
+
+    <div class="block">
+      <h2>Indicadores para cobrança pública</h2>
+      <div class="chips">${t.indicators.map(i=>`<span class="chip mono">${i}</span>`).join("")}</div>
+    </div>
+
+    <div class="block">
+      <h2>Benchmarks e referências</h2>
+      <div class="chips">${t.benchmarks.map(b=>`<span class="chip">${b}</span>`).join("")}</div>
+    </div>
+    <div class="end-cap"></div>
+  </div>`;
+}
+
+function renderGuia(){
+  return `
+  <div class="screen">
+    <div class="topbar">
+      <div class="topbar__back" data-nav="#/"> ${icons.back} </div>
+      <div class="topbar__title">Guia de leitura</div>
+    </div>
+    <div class="dhero" style="background:linear-gradient(160deg, var(--green), var(--green-deep));">
+      <span class="dhero__chip">Como usar este resumo</span>
+      <h1>O essencial para decidir e executar</h1>
+      <p class="desc">Leitura rápida por tema — problemas, solução, eixos, agenda de execução, benchmarks e indicadores. Não substitui o plano completo.</p>
+    </div>
+    <div class="block"><h2>O que é</h2></div>
+    <div class="guia-card"><p>Uma agenda estratégica, apartidária e orientada por evidências, com foco em execução e prioridades.</p></div>
+
+    <div class="block"><h2>Como usar</h2></div>
+    <div class="guia-card"><p>Cada tema traz problemas identificados, solução proposta, eixos de atuação, benchmarks, agenda de execução (0–12 meses, 2–4 anos, 10 anos) e indicadores mínimos para cobrança pública.</p></div>
+
+    <div class="block"><h2>Regra de ouro</h2></div>
+    <div class="guia-card rule"><h3>Sem os quatro elementos, não é política pública</h3><p>Meta sem orçamento, responsável, indicador ou rotina de decisão é mera intenção — não política pública.</p></div>
+
+    <div class="block"><h2>O que toda proposta de governo precisa ter</h2></div>
+    <div class="guia-card"><p>Linha de base, meta mensurável, orçamento, responsável único, dependências entre secretarias, risco fiscal, risco de captura e rotina de prestação de contas.</p></div>
+    <div class="end-cap"></div>
+  </div>`;
+}
+
+function renderNav(active){
+  return `<div class="navbar">
+    <button class="navbtn ${active==='home'?'active':''}" data-nav="#/">${icons.home}<span>Início</span></button>
+    <button class="navbtn ${active==='temas'?'active':''}" data-nav="#/" data-scroll="temas">${icons.grid}<span>Temas</span></button>
+    <button class="navbtn ${active==='guia'?'active':''}" data-nav="#/guia">${icons.book}<span>Guia</span></button>
+  </div>`;
+}
+
+function route(){
+  const hash = location.hash || "#/";
+  const shell = document.getElementById("shell");
+  let html, active;
+
+  if(hash.startsWith("#/tema/")){
+    const id = hash.replace("#/tema/","").split("?")[0];
+    html = renderDetail(id, 0);
+    active = "detail";
+  } else if(hash.startsWith("#/guia")){
+    html = renderGuia();
+    active = "guia";
+  } else {
+    html = renderHome();
+    active = "home";
+  }
+
+  shell.innerHTML = html + (active!=="detail" ? renderNav(active) : renderNav(""));
+  window.scrollTo(0,0);
+  const scroller = shell.querySelector(".screen");
+  if(scroller) scroller.scrollTop = 0;
+
+  // wire timeline tabs (detail view)
+  shell.querySelectorAll(".timeline__tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const id = hash.replace("#/tema/","").split("?")[0];
+      const t = findTheme(id);
+      const idx = parseInt(btn.dataset.phase,10);
+      document.getElementById("timeline-holder").innerHTML = renderTimeline(t, idx);
+      wireTimeline(id);
+    });
+  });
+
+  // wire nav
+  shell.querySelectorAll("[data-nav]").forEach(el=>{
+    el.addEventListener("click", (e)=>{
+      const target = el.getAttribute("data-nav");
+      if(location.hash === target){ route(); } else { location.hash = target; }
+      if(el.dataset.scroll){
+        setTimeout(()=>{
+          const label = Array.from(shell.querySelectorAll(".section-label")).find(s=>s.textContent.includes("Os 10 temas"));
+          if(label) label.scrollIntoView({behavior:"smooth", block:"start"});
+        },60);
+      }
+    });
+  });
+}
+
+function wireTimeline(id){
+  document.querySelectorAll(".timeline__tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const t = findTheme(id);
+      const idx = parseInt(btn.dataset.phase,10);
+      document.getElementById("timeline-holder").innerHTML = renderTimeline(t, idx);
+      wireTimeline(id);
+    });
+  });
+}
+
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
